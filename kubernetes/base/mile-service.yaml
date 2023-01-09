@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mile-service1
+  namespace: cloudmile
+  labels:
+    k8s-app: mile
+spec:
+  type: NodePort
+  selector:
+    k8s-app: mile
+  ports:
+    - name: server-port
+      port: 80
+      protocol: TCP
+      targetPort: mile-server1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mile-service2
+  namespace: cloudmile
+  labels:
+    k8s-app: mile
+spec:
+  type: NodePort
+  selector:
+    k8s-app: mile
+  ports:
+    - name: server-port
+      port: 80
+      protocol: TCP
+      targetPort: mile-server2

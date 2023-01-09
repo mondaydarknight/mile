@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mile-nginx1
+  namespace: cloudmile
+  labels:
+    app.kubernetes.io/name: proxy
+    k8s-app: mile
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.23.3-alpine
+    ports:
+    - containerPort: 8888
+      name: mile-server1
+    volumeMounts:
+    - name: mile-config1
+      mountPath: /etc/nginx/nginx.conf
+      subPath: nginx.conf
+  volumes:
+  - name: mile-config1
+    configMap:
+      name: mile-config1
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mile-nginx2
+  namespace: cloudmile
+  labels:
+    app.kubernetes.io/name: proxy
+    k8s-app: mile
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.23.3-alpine
+    ports:
+    - containerPort: 8888
+      name: mile-server2
+    volumeMounts:
+    - name: mile-config2
+      mountPath: /etc/nginx/nginx.conf
+      subPath: nginx.conf
+  volumes:
+  - name: mile-config2
+    configMap:
+      name: mile-config2
